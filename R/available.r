@@ -1,3 +1,7 @@
+#' Does the Internet Archive have a URL cached?
+#'
+#' @param url URL to retrieve information for
+#' @param timestamp (optional) timestamp use when checking for availability
 #' @export
 archive_available <- function(url, timestamp) {
 

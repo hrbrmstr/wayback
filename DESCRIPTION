@@ -18,5 +18,6 @@ Imports:
   httr,
   tibble,
   anytime,
-  jsonlite
+  jsonlite,
+  stringi
 RoxygenNote: 6.0.0

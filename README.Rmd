@@ -6,7 +6,8 @@ wayback : Tools to Work with the Various Internet Archive Wayback Machine APIs
 
 The following functions are implemented:
 
-The following data sets are included:
+- `archive_available`:	Does the Internet Archive have a URL cached?
+- `get_mementos`:	Retrieve site mementos
 
 ### Installation
 
@@ -14,7 +15,7 @@ The following data sets are included:
 devtools::install_github("hrbrmstr/wayback")
 ```
 
-```{r message=FALSE, warning=FALSE, error=FALSE}
+```{r message=FALSE, warning=FALSE, error=FALSE, echo=FALSE}
 options(width=120)
 ```
 
@@ -26,6 +27,9 @@ library(wayback)
 # current verison
 packageVersion("wayback")
 
+archive_available("https://rud.is/b")
+
+get_mementos("https://rud.is/b")
 ```
 
 ### Test Results

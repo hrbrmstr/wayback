@@ -1,3 +1,7 @@
+#' Retrieve site mementos
+#'
+#' @param url URL to retrieve information for
+#' @param timestamp (optional) timestamp use when checking for availability
 #' @export
 get_mementos <- function(url, timestamp) {
 

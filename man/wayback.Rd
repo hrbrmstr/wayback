@@ -4,9 +4,11 @@
 \name{wayback}
 \alias{wayback}
 \alias{wayback-package}
-\title{Tools to ...}
+\title{Tools to Work with the Various Internet Archive Wayback Machine APIs}
 \description{
-Tools to ...
+The 'Internet Archive' provides access to millions of cached sites. Methods
+are provided to access these cached resources through the 'APIs' provided by
+the 'Internet Archive'.
 }
 \author{
 Bob Rudis (bob@rud.is)
