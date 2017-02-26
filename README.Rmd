@@ -8,6 +8,7 @@ The following functions are implemented:
 
 - `archive_available`:	Does the Internet Archive have a URL cached?
 - `get_mementos`:	Retrieve site mementos
+- `get_timemap`:	Retrieve a timemap for a URL
 
 ### Installation
 
@@ -30,6 +31,8 @@ packageVersion("wayback")
 archive_available("https://rud.is/b")
 
 get_mementos("https://rud.is/b")
+
+get_timemap("https://rud.is/b")
 ```
 
 ### Test Results

@@ -10,4 +10,5 @@
 #' @import purrr httr anytime stringi
 #' @importFrom tibble as_tibble data_frame
 #' @importFrom jsonlite fromJSON
+#' @importFrom dplyr mutate select
 NULL

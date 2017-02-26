@@ -17,6 +17,7 @@ Imports:
   purrr,
   httr,
   tibble,
+  dplyr,
   anytime,
   jsonlite,
   stringi

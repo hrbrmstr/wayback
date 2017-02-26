@@ -5,6 +5,7 @@ The following functions are implemented:
 
 -   `archive_available`: Does the Internet Archive have a URL cached?
 -   `get_mementos`: Retrieve site mementos
+-   `get_timemap`: Retrieve a timemap for a URL
 
 ### Installation
 
@@ -46,6 +47,25 @@ get_mementos("https://rud.is/b")
     ## 5 http://web.archive.org/web/20110218004632/http://rud.is/b/ first memento 2011-02-18 00:46:32
     ## 6 http://web.archive.org/web/20170105023508/http://rud.is/b/  prev memento 2017-01-05 02:35:08
 
+``` r
+get_timemap("https://rud.is/b")
+```
+
+    ## # A tibble: 212 × 6
+    ##              rel                                                       link                    type
+    ##            <chr>                                                      <chr>                   <chr>
+    ## 1       original                                           https://rud.is/b                    <NA>
+    ## 2           self   http://web.archive.org/web/timemap/link/https://rud.is/b application/link-format
+    ## 3       timegate                http://web.archive.org/web/https://rud.is/b                    <NA>
+    ## 4  first memento http://web.archive.org/web/20110218004632/http://rud.is/b/                    <NA>
+    ## 5        memento  http://web.archive.org/web/20110219065135/http://rud.is/b                    <NA>
+    ## 6        memento http://web.archive.org/web/20110219065135/http://rud.is/b/                    <NA>
+    ## 7        memento http://web.archive.org/web/20110220055412/http://rud.is/b/                    <NA>
+    ## 8        memento http://web.archive.org/web/20110327171609/http://rud.is/b/                    <NA>
+    ## 9        memento http://web.archive.org/web/20110412224903/http://rud.is/b/                    <NA>
+    ## 10       memento  http://web.archive.org/web/20110426173807/http://rud.is/b                    <NA>
+    ## # ... with 202 more rows, and 3 more variables: from <chr>, until <chr>, datetime <chr>
+
 ### Test Results
 
 ``` r
@@ -55,7 +75,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Feb 26 17:44:24 2017"
+    ## [1] "Sun Feb 26 18:24:29 2017"
 
 ``` r
 test_dir("tests/")

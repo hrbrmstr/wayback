@@ -2,10 +2,13 @@
 
 export(archive_available)
 export(get_mementos)
+export(get_timemap)
 import(anytime)
 import(httr)
 import(purrr)
 import(stringi)
+importFrom(dplyr,mutate)
+importFrom(dplyr,select)
 importFrom(jsonlite,fromJSON)
 importFrom(tibble,as_tibble)
 importFrom(tibble,data_frame)
