@@ -2,7 +2,7 @@
 output: rmarkdown::github_document
 ---
 
-wayback : Tools to ...
+wayback : Tools to Work with the Various Internet Archive Wayback Machine APIs
 
 The following functions are implemented:
 

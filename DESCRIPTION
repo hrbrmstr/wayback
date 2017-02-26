@@ -1,14 +1,22 @@
 Package: wayback
-Title: wayback TITLE
+Title: Tools to Work with the Various Internet Archive Wayback Machine APIs
 Version: 0.1.0
 Encoding: UTF-8
 Authors@R: c(person("Bob", "Rudis", role = c("aut", "cre"), email = "bob@rud.is"))
 Maintainer: Bob Rudis <bob@rud.is>
-Description: wayback DESCRIPTION
+Description: The 'Internet Archive' provides access to millions of cached sites. 
+    Methods are provided to access these cached resources through the 'APIs' provided
+    by the 'Internet Archive'.
 Depends: R (>= 3.2.0)
 License: AGPL
 URL: https://github.com/hrbrmstr/wayback
 BugReports: https://github.com/hrbrmstr/wayback/issues
 LazyData: true
 Suggests: testthat
-Imports: purrr
+Imports: 
+  purrr,
+  httr,
+  tibble,
+  anytime,
+  jsonlite
+RoxygenNote: 6.0.0
