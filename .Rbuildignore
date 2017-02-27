@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^TASKS$
+^README\.Rmd$
+^README\.md$

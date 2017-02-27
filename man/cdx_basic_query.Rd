@@ -12,3 +12,7 @@ cdx_basic_query(url)
 \description{
 Perform a basic/limited Internet Archive CDX resource query for a URL
 }
+\examples{
+cdx_basic_query("rud.is/b")
+}
+
