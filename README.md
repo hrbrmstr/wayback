@@ -1,7 +1,7 @@
 
 wayback : Tools to Work with the Various Internet Archive Wayback Machine APIs
 
-[![Travis-CI Build Status](https://travis-ci.org/jonocarroll/wayback.svg?branch=master)](https://travis-ci.org/jonocarroll/wayback) [![Coverage Status](https://img.shields.io/codecov/c/github/jonocarroll/wayback/master.svg)](https://codecov.io/github/jonocarroll/wayback?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/jonocarroll/wayback.svg?branch=dev-cdx)](https://travis-ci.org/jonocarroll/wayback) [![Coverage Status](https://img.shields.io/codecov/c/github/jonocarroll/wayback/dev-cdx.svg)](https://codecov.io/github/jonocarroll/wayback?branch=dev-cdx)
 
 The following functions are implemented:
 
@@ -94,7 +94,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Mon Feb 27 23:43:14 2017"
+    ## [1] "Tue Feb 28 00:02:48 2017"
 
 ``` r
 test_dir("tests/")
