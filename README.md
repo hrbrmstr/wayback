@@ -4,6 +4,7 @@ wayback : Tools to Work with the Various Internet Archive Wayback Machine APIs
 The following functions are implemented:
 
 -   `archive_available`: Does the Internet Archive have a URL cached?
+-   `cdx_basic_query`: Perform a basic/limited Internet Archive CDX resource query for a URL
 -   `get_mementos`: Retrieve site mementos
 -   `get_timemap`: Retrieve a timemap for a URL
 
@@ -17,6 +18,7 @@ devtools::install_github("hrbrmstr/wayback")
 
 ``` r
 library(wayback)
+library(tidyverse)
 
 # current verison
 packageVersion("wayback")
@@ -66,6 +68,21 @@ get_timemap("https://rud.is/b")
     ## 10       memento  http://web.archive.org/web/20110426173807/http://rud.is/b                    <NA>
     ## # ... with 202 more rows, and 3 more variables: from <chr>, until <chr>, datetime <chr>
 
+``` r
+cdx_basic_query("https://rud.is/b") %>% 
+  glimpse()
+```
+
+    ## Observations: 211
+    ## Variables: 7
+    ## $ urlkey     <chr> "is,rud)/b", "is,rud)/b", "is,rud)/b", "is,rud)/b", "is,rud)/b", "is,rud)/b", "is,rud)/b", "is,r...
+    ## $ timestamp  <dttm> 2011-02-18, 2011-02-19, 2011-02-19, 2011-02-20, 2011-03-27, 2011-04-12, 2011-04-26, 2011-04-26,...
+    ## $ original   <chr> "http://rud.is:80/b/", "http://rud.is:80/b", "http://rud.is:80/b/", "http://rud.is/b/", "http://...
+    ## $ mimetype   <chr> "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text...
+    ## $ statuscode <chr> "200", "301", "200", "200", "200", "200", "301", "200", "200", "301", "200", "301", "200", "301"...
+    ## $ digest     <chr> "2DV4A2RNGAQ3CDMNASYIMMJM4TDPOPJC", "5464F3DRRISJGE3E5AJETQETHU6QZRUC", "EHJCAIH4ODA2QONHAHZNIRS...
+    ## $ length     <dbl> 19156, 297, 18595, 19621, 27927, 26159, 298, 25823, 14959, 298, 15237, 297, 15180, 296, 15392, 2...
+
 ### Test Results
 
 ``` r
@@ -75,7 +92,7 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Feb 26 18:24:29 2017"
+    ## [1] "Sun Feb 26 19:31:24 2017"
 
 ``` r
 test_dir("tests/")

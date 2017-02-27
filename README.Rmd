@@ -7,6 +7,7 @@ wayback : Tools to Work with the Various Internet Archive Wayback Machine APIs
 The following functions are implemented:
 
 - `archive_available`:	Does the Internet Archive have a URL cached?
+- `cdx_basic_query`:	Perform a basic/limited Internet Archive CDX resource query for a URL
 - `get_mementos`:	Retrieve site mementos
 - `get_timemap`:	Retrieve a timemap for a URL
 
@@ -24,6 +25,7 @@ options(width=120)
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(wayback)
+library(tidyverse)
 
 # current verison
 packageVersion("wayback")
@@ -33,6 +35,9 @@ archive_available("https://rud.is/b")
 get_mementos("https://rud.is/b")
 
 get_timemap("https://rud.is/b")
+
+cdx_basic_query("https://rud.is/b") %>% 
+  glimpse()
 ```
 
 ### Test Results
