@@ -1,19 +1,95 @@
-context("cdx API functionality")
-test_that("cdx API connects and produces a tibble", {
+context("CDX API functionality")
+test_that("CDX API connects and produces a tibble with valid inputs", {
 
-  expect_silent(res <- cdx_basic_query("rud.is/b"))
+  #TODO test for column names?
+  #TODO test for column types?
+
+  # ensure HTTP is available prior to testing
+  skip_if_not(identical(
+    httr::status_code(
+      httr::GET("http://rud.is/b",
+                httr::user_agent("wayback 0.2.0 tests"))
+    ),
+    200L),
+    "HTTP connection failed")
+
+  ## NOTE: occasionally a timestamp returns NA, which causes tibble to complain about coerced NA
+  ##       this likely isn't really a problem, so warnings are suppressed for these tests
+
+  test_URL <- "http://archive.org"
+
+  # basic usage (lots of rows)
+  suppressWarnings(res <- cdx_basic_query(test_URL))
   expect_that(res, is_a("tbl_df"))
   expect_that(res, is_a("data.frame"))
 
+  ## NOTE: testing with limit = 10 for speed
+
+  # expect_silent(res <- cdx_basic_query(test_URL)) # warnings could be okay
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10))
+  expect_that(res, is_a("tbl_df"))
+  expect_that(res, is_a("data.frame"))
+  expect_lte(nrow(res), 10)
+  expect_gte(nrow(res), 0)
+
+  # expect_silent(res <- cdx_basic_query(test_URL, matchType = "exact")) # warnings could be okay
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "exact"))
+  expect_that(res, is_a("tbl_df"))
+  expect_that(res, is_a("data.frame"))
+  expect_lte(nrow(res), 10)
+  expect_gte(nrow(res), 0)
+
+  # expect_silent(res <- cdx_basic_query(test_URL, matchType = "prefix")) # warnings could be okay
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "prefix"))
+  expect_that(res, is_a("tbl_df"))
+  expect_that(res, is_a("data.frame"))
+  expect_lte(nrow(res), 10)
+  expect_gte(nrow(res), 0)
+
+  # expect_silent(res <- cdx_basic_query(test_URL, matchType = "host")) # warnings could be okay
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "host"))
+  expect_that(res, is_a("tbl_df"))
+  expect_that(res, is_a("data.frame"))
+  expect_lte(nrow(res), 10)
+  expect_gte(nrow(res), 0)
+
+  # expect_silent(res <- cdx_basic_query(test_URL, matchType = "domain")) # warnings could be okay
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "domain"))
+  expect_that(res, is_a("tbl_df"))
+  expect_that(res, is_a("data.frame"))
+  expect_lte(nrow(res), 10)
+  expect_gte(nrow(res), 0)
+
 })
 
-test_that("cdx API fails on invalid or missing input", {
+test_that("CDX API fails on invalid or missing input", {
 
-  expect_error(res <- cdx_basic_query(""))
-  expect_error(res <- cdx_basic_query())
-  expect_error(res <- cdx_basic_query(1337))
-  expect_error(res <- cdx_basic_query(NA))
-  expect_error(res <- cdx_basic_query(url = NULL))
-  expect_error(res <- cdx_basic_query(NULL))
+  test_URL <- "http://archive.org"
+
+  # test @param url
+  expect_error(cdx_basic_query(""))
+  expect_error(cdx_basic_query())
+  expect_error(cdx_basic_query(1337))
+  expect_error(cdx_basic_query(NA))
+  expect_error(cdx_basic_query(url = NULL))
+  expect_error(cdx_basic_query(NULL))
+
+  # test @param matchType
+  expect_error(cdx_basic_query(test_URL, matchType = NA))
+  expect_error(cdx_basic_query(test_URL, matchType = NULL))
+  expect_error(cdx_basic_query(test_URL, matchType = "foo"))
+  expect_error(cdx_basic_query(test_URL, matchType = 9))
+
+  #test @param limit
+  expect_error(cdx_basic_query(test_URL, limit = 0))
+  expect_error(cdx_basic_query(test_URL, limit = NA))
+  expect_error(cdx_basic_query(test_URL, limit = NULL))
+  expect_error(cdx_basic_query(test_URL, limit = "0"))
+  expect_error(suppressWarnings(cdx_basic_query(test_URL, limit = "a")))
+
+  #test @param limit with valid but non-standard input
+  res <- cdx_basic_query(test_URL, limit = c(3, 10))
+  expect_lte(nrow(res), 3)
+  expect_gte(nrow(res), 0)
 
 })

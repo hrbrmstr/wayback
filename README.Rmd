@@ -4,6 +4,9 @@ output: rmarkdown::github_document
 
 wayback : Tools to Work with the Various Internet Archive Wayback Machine APIs
 
+[![Travis-CI Build Status](https://travis-ci.org/jonocarroll/wayback.svg?branch=master)](https://travis-ci.org/jonocarroll/wayback)
+[![Coverage Status](https://img.shields.io/codecov/c/github/jonocarroll/wayback/master.svg)](https://codecov.io/github/jonocarroll/wayback?branch=master)
+
 The following functions are implemented:
 
 - `archive_available`:	Does the Internet Archive have a URL cached?

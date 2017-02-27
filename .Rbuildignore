@@ -3,3 +3,5 @@
 ^TASKS$
 ^README\.Rmd$
 ^README\.md$
+^\.travis\.yml$
+^codecov\.yml$

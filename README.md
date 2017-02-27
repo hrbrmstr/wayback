@@ -1,6 +1,8 @@
 
 wayback : Tools to Work with the Various Internet Archive Wayback Machine APIs
 
+[![Travis-CI Build Status](https://travis-ci.org/jonocarroll/wayback.svg?branch=master)](https://travis-ci.org/jonocarroll/wayback) [![Coverage Status](https://img.shields.io/codecov/c/github/jonocarroll/wayback/master.svg)](https://codecov.io/github/jonocarroll/wayback?branch=master)
+
 The following functions are implemented:
 
 -   `archive_available`: Does the Internet Archive have a URL cached?
@@ -24,7 +26,7 @@ library(tidyverse)
 packageVersion("wayback")
 ```
 
-    ## [1] '0.1.0'
+    ## [1] '0.2.0'
 
 ``` r
 archive_available("https://rud.is/b")
@@ -92,13 +94,13 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Sun Feb 26 19:31:24 2017"
+    ## [1] "Mon Feb 27 23:43:14 2017"
 
 ``` r
 test_dir("tests/")
 ```
 
     ## testthat results ========================================================================================================
-    ## OK: 0 SKIPPED: 0 FAILED: 0
+    ## OK: 39 SKIPPED: 0 FAILED: 0
     ## 
     ## DONE ===================================================================================================================
