@@ -1,0 +1,10 @@
+TODO
+
+[ ] validate: 
+    [ ] URL
+    [ ] status
+    [ ] returned JSON
+ [ ] inplement:
+    [ ] URL Match Scope
+    [ ] filter
+    [ ] pagination
