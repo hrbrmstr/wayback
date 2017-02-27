@@ -1,0 +1,16 @@
+TODO
+
+[ ] validate:
+    [x] URL
+    [x] status
+    [ ] returned JSON
+[ ] inplement:
+    [x] limit
+    [x] matchType
+    [ ] filter
+    [ ] pagination
+[x] travis.ci
+[x] codecov.io
+[x] pass all checks
+[x] add tests
+    [x] pass all tests

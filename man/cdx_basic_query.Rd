@@ -4,11 +4,30 @@
 \alias{cdx_basic_query}
 \title{Perform a basic/limited Internet Archive CDX resource query for a URL}
 \usage{
-cdx_basic_query(url)
+cdx_basic_query(url, matchType = c("exact", "prefix", "host", "domain"),
+  limit = 10000L)
 }
 \arguments{
 \item{url}{URL to query}
+
+\item{matchType}{The CDX server can also return results matching a certain
+prefix, a certain host or all subdomains}
+
+\item{limit}{Maximum number of results to return (first N results). Use a
+negative number to retrieve the last N results.}
+}
+\value{
+a \code{tibble} of the result
 }
 \description{
 Perform a basic/limited Internet Archive CDX resource query for a URL
 }
+\details{
+If a vector of numeric values is provided to \code{limit} then the
+  smallest value will be used. Values of \code{limit} are coerced using
+  \code{as.integer}.
+}
+\examples{
+cdx_basic_query("http://example.com")
+}
+
