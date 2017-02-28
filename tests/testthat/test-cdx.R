@@ -62,6 +62,31 @@ test_that("CDX API connects and produces a tibble with valid inputs", {
 
 })
 
+test_that("is_ helper functions grepl-match correctly", {
+
+  memento_types <- c("memento", "first memento", "next memento", "last memento",
+                     "prev memento", "original", "timemap", "timegate", "nothing",
+                     NA, NULL)
+
+  expect_equal(is_memento(memento_types),
+               c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_first_memento(memento_types),
+               c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_next_memento(memento_types),
+               c(FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_prev_memento(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_last_memento(memento_types),
+               c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_original(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_timemap(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
+  expect_equal(is_timegate(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE))
+
+})
+
 test_that("CDX API fails on invalid or missing input", {
 
   test_URL <- "http://archive.org"

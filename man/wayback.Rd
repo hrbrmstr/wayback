@@ -13,4 +13,3 @@ the 'Internet Archive'.
 \author{
 Bob Rudis (bob@rud.is)
 }
-

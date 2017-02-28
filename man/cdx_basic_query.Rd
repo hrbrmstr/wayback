@@ -30,4 +30,3 @@ If a vector of numeric values is provided to \code{limit} then the
 \examples{
 cdx_basic_query("http://example.com")
 }
-

@@ -12,6 +12,11 @@ get_mementos(url, timestamp)
 \item{timestamp}{(optional) timestamp use when checking for availability}
 }
 \description{
-Retrieve site mementos
+It's possible that a memento list could be large and contain an entry
+for the next "page" of mementos.
 }
-
+\details{
+TODO Not sure we should handle that ^^ here since this is a free service and
+is already pretty taxed. If the user needs it they can request from a new
+timestamp. But I'm not committed to this concept.
+}

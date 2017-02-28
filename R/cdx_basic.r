@@ -46,7 +46,7 @@ cdx_basic_query <- function(url, matchType = c("exact", "prefix", "host", "domai
 
   res <- httr::GET("http://web.archive.org/cdx/search/cdx",
              query = list(url = url_enc, output = "json", matchType = matchType, limit = limit),
-             httr::user_agent("https://github.com/hrbrmstr/wayback")
+             httr::user_agent(UA_WAYBACK)
   )
 
   httr::stop_for_status(res)

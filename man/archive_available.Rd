@@ -14,4 +14,3 @@ archive_available(url, timestamp)
 \description{
 Does the Internet Archive have a URL cached?
 }
-

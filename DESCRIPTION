@@ -25,4 +25,4 @@ Imports:
     anytime,
     jsonlite,
     stringi
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0
