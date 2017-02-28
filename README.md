@@ -9,6 +9,14 @@ The following functions are implemented:
 -   `cdx_basic_query`: Perform a basic/limited Internet Archive CDX resource query for a URL
 -   `get_mementos`: Retrieve site mementos
 -   `get_timemap`: Retrieve a timemap for a URL
+-   `is_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+-   `is_first_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+-   `is_next_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+-   `is_prev_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+-   `is_last_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+-   `is_original`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+-   `is_timemap`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+-   `is_timegate: Various memento-type testers (useful in`purrr`or`dplyr\` contexts)
 
 ### Installation
 
@@ -94,13 +102,14 @@ library(testthat)
 date()
 ```
 
-    ## [1] "Tue Feb 28 00:02:48 2017"
+    ## [1] "Tue Feb 28 17:57:33 2017"
 
 ``` r
 test_dir("tests/")
 ```
 
     ## testthat results ========================================================================================================
-    ## OK: 39 SKIPPED: 0 FAILED: 0
+    ## OK: 47 SKIPPED: 0 FAILED: 0
     ## 
     ## DONE ===================================================================================================================
+    ## Keep up the good work.
