@@ -7,16 +7,16 @@ Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'Internet Archive' provides access to millions of cached
     sites. Methods are provided to access these cached resources through the 'APIs'
     provided by the 'Internet Archive'.
-Depends:
+Depends: 
     R (>= 3.2.0)
 License: AGPL
 URL: https://github.com/hrbrmstr/wayback
 BugReports: https://github.com/hrbrmstr/wayback/issues
 LazyData: true
-Suggests:
+Suggests: 
     testthat,
     covr
-Imports:
+Imports: 
     purrr,
     httr,
     tibble,
@@ -24,5 +24,11 @@ Imports:
     lazyeval,
     anytime,
     jsonlite,
-    stringi
-RoxygenNote: 6.0.0
+    stringi,
+    pbapply,
+    magick,
+    slickR,
+    splashr
+RoxygenNote: 6.0.1
+Remotes: hrbrmstr/splashr,
+    yonicd/slickR
