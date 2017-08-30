@@ -1,8 +1,9 @@
 context("CDX API functionality")
 test_that("CDX API connects and produces a tibble with valid inputs", {
 
-  #TODO test for column names?
-  #TODO test for column types?
+  testthat::skip_on_cran()
+  testthat::skip_on_travis()
+  testthat::skip_on_appveyor()
 
   # ensure HTTP is available prior to testing
   skip_if_not(identical(
@@ -11,7 +12,8 @@ test_that("CDX API connects and produces a tibble with valid inputs", {
                 httr::user_agent("wayback 0.2.0 tests"))
     ),
     200L),
-    "HTTP connection failed")
+    "HTTP connection failed"
+  )
 
   ## NOTE: occasionally a timestamp returns NA, which causes tibble to complain about coerced NA
   ##       this likely isn't really a problem, so warnings are suppressed for these tests
@@ -33,28 +35,28 @@ test_that("CDX API connects and produces a tibble with valid inputs", {
   expect_gte(nrow(res), 0)
 
   # expect_silent(res <- cdx_basic_query(test_URL, matchType = "exact")) # warnings could be okay
-  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "exact"))
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, match_type = "exact"))
   expect_that(res, is_a("tbl_df"))
   expect_that(res, is_a("data.frame"))
   expect_lte(nrow(res), 10)
   expect_gte(nrow(res), 0)
 
   # expect_silent(res <- cdx_basic_query(test_URL, matchType = "prefix")) # warnings could be okay
-  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "prefix"))
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, match_type = "prefix"))
   expect_that(res, is_a("tbl_df"))
   expect_that(res, is_a("data.frame"))
   expect_lte(nrow(res), 10)
   expect_gte(nrow(res), 0)
 
   # expect_silent(res <- cdx_basic_query(test_URL, matchType = "host")) # warnings could be okay
-  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "host"))
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, match_type = "host"))
   expect_that(res, is_a("tbl_df"))
   expect_that(res, is_a("data.frame"))
   expect_lte(nrow(res), 10)
   expect_gte(nrow(res), 0)
 
   # expect_silent(res <- cdx_basic_query(test_URL, matchType = "domain")) # warnings could be okay
-  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, matchType = "domain"))
+  suppressWarnings(res <- cdx_basic_query(test_URL, limit = 10, match_type = "domain"))
   expect_that(res, is_a("tbl_df"))
   expect_that(res, is_a("data.frame"))
   expect_lte(nrow(res), 10)
@@ -62,7 +64,12 @@ test_that("CDX API connects and produces a tibble with valid inputs", {
 
 })
 
+context("CDX API functionality (failing resolution)")
 test_that("CDX API fails on invalid or missing input", {
+
+  testthat::skip_on_cran()
+  testthat::skip_on_travis()
+  testthat::skip_on_appveyor()
 
   test_URL <- "http://archive.org"
 

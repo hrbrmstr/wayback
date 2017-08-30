@@ -4,13 +4,12 @@
 \name{wayback}
 \alias{wayback}
 \alias{wayback-package}
-\title{Tools to Work with the Various Internet Archive Wayback Machine APIs}
+\title{Tools to Work with Internet Archive Wayback Machine APIs}
 \description{
 The 'Internet Archive' provides access to millions of cached sites. Methods
 are provided to access these cached resources through the 'APIs' provided by
-the 'Internet Archive'.
+the 'Internet Archive' and also content from 'MementoWeb'.
 }
 \author{
 Bob Rudis (bob@rud.is)
 }
-

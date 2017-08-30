@@ -2,16 +2,32 @@
 % Please edit documentation in R/memento.r
 \name{get_mementos}
 \alias{get_mementos}
-\title{Retrieve site mementos}
+\title{Retrieve site mementos from the Internet Archive}
 \usage{
-get_mementos(url, timestamp)
+get_mementos(url, timestamp = format(Sys.Date(), "\%Y"))
 }
 \arguments{
 \item{url}{URL to retrieve information for}
 
-\item{timestamp}{(optional) timestamp use when checking for availability}
+\item{timestamp}{(optional) timestamp to use when checking for availability.  If not specified,
+the most recenty available capture in Wayback is returned. If you don't pass in a
+valid R "time-y" object, you will need to ensure the character string you
+provide is in a valid subset of `YYYYMMDDhhmmss`.}
 }
 \description{
-Retrieve site mementos
+Mementos are prior versions of web pages that have been cached from web crawlers.
+They can be found in web archives (such as the Internet Archive) or systems that
+support versioning such as wikis or revision control systems.
 }
+\examples{
+\dontrun{
+rproj_mnto <- get_mementos("https://www.r-project.org/")
 
+dplyr::glimpse(rproj_mnto)
+## Observations: 7
+## Variables: 3
+## $ link <chr> "http://www.r-project.org/", "http://web.archive.org/web/timemap/...
+## $ rel  <chr> "original", "timemap", "timegate", "first memento", "prev memento...
+## $ ts   <dttm> NA, NA, NA, 2000-06-20 19:56:31, 2017-08-29 04:41:15, 2017-08-30...
+}
+}

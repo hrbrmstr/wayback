@@ -1,9 +1,26 @@
-#' Retrieve site mementos
+#' Retrieve site mementos from the Internet Archive
+#'
+#' Mementos are prior versions of web pages that have been cached from web crawlers.
+#' They can be found in web archives (such as the Internet Archive) or systems that
+#' support versioning such as wikis or revision control systems.
 #'
 #' @param url URL to retrieve information for
-#' @param timestamp (optional) timestamp use when checking for availability
+#' @param timestamp (optional) timestamp to use when checking for availability.  If not specified,
+#'        the most recenty available capture in Wayback is returned. If you don't pass in a
+#'        valid R "time-y" object, you will need to ensure the character string you
+#'        provide is in a valid subset of `YYYYMMDDhhmmss`.
 #' @export
-get_mementos <- function(url, timestamp) {
+#' @examples \dontrun{
+#' rproj_mnto <- get_mementos("https://www.r-project.org/")
+#'
+#' dplyr::glimpse(rproj_mnto)
+#' ## Observations: 7
+#' ## Variables: 3
+#' ## $ link <chr> "http://www.r-project.org/", "http://web.archive.org/web/timemap/...
+#' ## $ rel  <chr> "original", "timemap", "timegate", "first memento", "prev memento...
+#' ## $ ts   <dttm> NA, NA, NA, 2000-06-20 19:56:31, 2017-08-29 04:41:15, 2017-08-30...
+#' }
+get_mementos <- function(url, timestamp = format(Sys.Date(), "%Y")) {
 
   base_url <- "http://web.archive.org/web/%s%s"
 
@@ -19,7 +36,9 @@ get_mementos <- function(url, timestamp) {
     timestamp <- ""
   }
 
-  res <- HEAD(sprintf(base_url, timestamp, url))
+  url <- sprintf(base_url, timestamp, url)
+  res <- httr::HEAD(url, httr::user_agent(UA_WAYBACK))
+
 
   httr::stop_for_status(res)
 

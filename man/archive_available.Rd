@@ -9,9 +9,37 @@ archive_available(url, timestamp)
 \arguments{
 \item{url}{URL to retrieve information for}
 
-\item{timestamp}{(optional) timestamp use when checking for availability}
+\item{timestamp}{(optional) timestamp to use when checking for availability.  If not specified,
+the most recenty available capture in Wayback is returned. If you don't pass in a
+valid R "time-y" object, you will need to ensure the character string you
+provide is in a valid subset of \code{YYYYMMDDhhmmss}.}
+}
+\value{
+data frame
 }
 \description{
-Does the Internet Archive have a URL cached?
+This performs a simple test to see if a  given url is archived and currenlty accessible
+in the Wayback Machine.
 }
+\details{
+If a resource is found, the returned data frame will have \code{available} set to \code{TRUE}
+and the \code{closest_url}, \code{timestamp} and \code{status} fields populated. If the resource is
+not found, the \code{url} field will be populated along with a \code{status} field that has a
+value of "\code{404}".
+}
+\examples{
+\dontrun{
+rproj_avail <- archive_available("https://www.r-project.org/")
 
+str(rproj_avail)
+## Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	1 obs. of  5 variables:
+##  $ url       : chr "https://www.r-project.org/"
+##  $ available : logi TRUE
+##  $ closet_url: chr "http://web.archive.org/web/20170830061210/http://www.r-project.org/"
+##  $ timestamp : POSIXct, format: "2017-08-30"
+##  $ status    : chr "200"
+}
+}
+\references{
+\url{https://archive.org/help/wayback_api.php}
+}

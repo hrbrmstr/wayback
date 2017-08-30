@@ -4,12 +4,59 @@
 \alias{get_timemap}
 \title{Retrieve a timemap for a URL}
 \usage{
-get_timemap(url)
+get_timemap(url, seconds = 180)
 }
 \arguments{
-\item{url}{Either an existig timemap URL or a plain resource URL}
+\item{url}{Either an existing timemap URL or a plain resource URL}
+
+\item{seconds}{(default is \code{180}) This is an expensive operation for the Internet Archive
+and it can take well-above this 3-minute setting for query results to be
+delivered. It's highly suggested you monitor your experience and adjust accordingly.}
+}
+\value{
+data frame of mementos
 }
 \description{
-Retrieve a timemap for a URL
+A TimeMap, as defined in the Memento protocol (\href{http://mementoweb.org/guide/rfc/}{RFC 7089}),
+provides an overview of all Mementos (and their archival/version datetimes) known to the
+responding server.
 }
+\details{
+A TimeMap (URI-T) for an Original Resource (URI-R) is a machine-readable document that
+lists the Original Resource itself, its TimeGate, and its Mementos as well as associated
+metadata such as archival datetime for Mementos. TimeMaps are exposed by systems that
+host prior versions of Original Resources, and allow for batch discovery of Mementos,
 
+TimeMaps are serialized according to the syntax specified for the value of the HTTP Link
+header. That format is introduced in \href{http://tools.ietf.org/html/rfc5988}{RFC 5988},
+Web Linking RFC, and has media type \code{application/link-format}.
+
+Each timemap entry contains:
+\itemize{
+\item \code{rel} : the type of timemap record (i.e. it describes the relationship between the current entry and the linked resource). See \href{http://mementoweb.org/guide/rfc/#rfc.section.2.2}{Section 2.2} for more information.
+\item \code{link} : can be the direct link to the original resource or links to the archived copy
+\item \code{type} : if provided, the type of link
+\item \code{from} : if provided, a timestamp for the \code{rel} == "\code{self}" record (should be \code{NA} for others)
+\item \code{datetime} : the timestamp for the memento record
+}
+}
+\note{
+if a supplied resource has many entries, this call can take a while
+}
+\examples{
+\dontrun{
+rproj_tm <- get_timemap("https://www.r-project.org/")
+
+unique(rproj_tm$rel)
+## [1] "original"      "self"          "timegate"      "first memento" "memento"
+
+dplyr::glimpse(rproj_tm)
+## Observations: 11,886
+## Variables: 5
+## $ rel      <chr> "original", "self", "timegate", "first memento", "memento", "mement...
+## $ link     <chr> "http://www.r-project.org:80/", "http://web.archive.org/web/timemap...
+## $ type     <chr> NA, "application/link-format", NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+## $ from     <chr> NA, "Tue, 20 Jun 2000 19:56:31 GMT", NA, NA, NA, NA, NA, NA, NA, NA...
+## $ datetime <chr> NA, NA, NA, "Tue, 20 Jun 2000 19:56:31 GMT", "Wed, 16 Aug 2000 09:5...
+}
+}

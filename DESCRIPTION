@@ -1,12 +1,13 @@
 Package: wayback
 Title: Tools to Work with the Various Internet Archive Wayback Machine APIs
-Version: 0.2.0
+Version: 0.3.0
 Encoding: UTF-8
+Date: 2017-08-30
 Authors@R: c(person("Bob", "Rudis", role = c("aut", "cre"), email = "bob@rud.is"))
 Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'Internet Archive' provides access to millions of cached
     sites. Methods are provided to access these cached resources through the 'APIs'
-    provided by the 'Internet Archive'.
+    provided by the 'Internet Archive' and also content from 'MementoWeb'.
 Depends:
     R (>= 3.2.0)
 License: AGPL
@@ -25,4 +26,4 @@ Imports:
     anytime,
     jsonlite,
     stringi
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

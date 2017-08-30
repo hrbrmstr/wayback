@@ -4,30 +4,43 @@
 \alias{cdx_basic_query}
 \title{Perform a basic/limited Internet Archive CDX resource query for a URL}
 \usage{
-cdx_basic_query(url, matchType = c("exact", "prefix", "host", "domain"),
+cdx_basic_query(url, match_type = c("exact", "prefix", "host", "domain"),
   limit = 10000L)
 }
 \arguments{
-\item{url}{URL to query}
+\item{url}{URL/resource to query for}
 
-\item{matchType}{The CDX server can also return results matching a certain
-prefix, a certain host or all subdomains}
+\item{match_type}{The CDX server can also return results matching a certain
+prefix, a certain host or all subdomains. Can be one of
+\code{"exact"}, \code{"prefix"}, \code{"host"}, or \code{"domain"} (defaults to \code{exact}).}
 
-\item{limit}{Maximum number of results to return (first N results). Use a
-negative number to retrieve the last N results.}
+\item{limit}{Maximum number of results to return (first \emph{n} results). Use a
+negative number to retrieve the last \emph{n} results. Default is \code{10,000}.}
 }
 \value{
-a \code{tibble} of the result
+data frame
 }
 \description{
-Perform a basic/limited Internet Archive CDX resource query for a URL
+CDX files are "Content Index" files. The Waybackcdx CDX server is a standalone HTTP
+servlet that serves the index that the Wayback machine uses to lookup captures.
 }
 \details{
-If a vector of numeric values is provided to \code{limit} then the
-  smallest value will be used. Values of \code{limit} are coerced using
-  \code{as.integer}.
+The index format is known as 'cdx' and contains various fields representing the capture,
+usually sorted by url and date. \url{http://archive.org/web/researcher/cdx_file_format.php}.
 }
 \examples{
-cdx_basic_query("http://example.com")
-}
+\dontrun{
+rproj_basic <- cdx_basic_query("https://www.r-project.org/")
 
+dplyr::glimpse(rproj_basic)
+## Observations: 10,000
+## Variables: 7
+## $ urlkey     <chr> "org,r-project)/", "org,r-project)/", "org,r-project)/"...
+## $ timestamp  <dttm> 2000-06-20, 2000-08-16, 2000-10-12, 2000-11-10, 2000-1...
+## $ original   <chr> "http://www.r-project.org:80/", "http://www.r-project.o...
+## $ mimetype   <chr> "text/html", "text/html", "text/html", "text/html", "te...
+## $ statuscode <chr> "200", "200", "200", "200", "200", "200", "200", "200",...
+## $ digest     <chr> "XDIHHFDLIWSZFHYHT453ZL5FYPCKFF6Z", "SRO3WSKQS6HST4PQY7...
+## $ length     <dbl> 4894, 5027, 589, 581, 582, 596, 590, 592, 592, 592, 563...
+}
+}
