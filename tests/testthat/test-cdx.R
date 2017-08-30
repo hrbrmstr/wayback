@@ -2,7 +2,6 @@ context("CDX API functionality")
 test_that("CDX API connects and produces a tibble with valid inputs", {
 
   testthat::skip_on_cran()
-  testthat::skip_on_travis()
   testthat::skip_on_appveyor()
 
   # ensure HTTP is available prior to testing
@@ -98,7 +97,6 @@ context("CDX API functionality (failing resolution)")
 test_that("CDX API fails on invalid or missing input", {
 
   testthat::skip_on_cran()
-  testthat::skip_on_travis()
   testthat::skip_on_appveyor()
 
   test_URL <- "http://archive.org"

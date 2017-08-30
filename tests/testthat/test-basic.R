@@ -2,7 +2,6 @@ context("Basic functionality")
 test_that("core functions work", {
 
   testthat::skip_on_cran()
-  testthat::skip_on_travis()
   testthat::skip_on_appveyor()
 
   # ensure HTTP is available prior to testing
@@ -20,6 +19,8 @@ test_that("core functions work", {
 
   res <- get_mementos("http://yahoo.com", timestamp = format(Sys.Date(), "%Y"))
   expect_that(res, is_a("data.frame"))
+
+  testthat::skip_on_travis()
 
   res <- read_memento("http://yahoo.com", "2010")
   expect_that(res, is_a("character"))
