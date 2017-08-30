@@ -19,6 +19,14 @@ Mementos are prior versions of web pages that have been cached from web crawlers
 They can be found in web archives (such as the Internet Archive) or systems that
 support versioning such as wikis or revision control systems.
 }
+\details{
+It's possible that a memento list could be large and contain an entry
+for the next "page" of mementos.
+
+TODO Not sure we should handle that ^^ here since this is a free service and
+is already pretty taxed. If the user needs it they can request from a new
+timestamp. But I'm not committed to this concept.
+}
 \examples{
 \dontrun{
 rproj_mnto <- get_mementos("https://www.r-project.org/")

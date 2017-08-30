@@ -9,7 +9,10 @@ The following functions are implemented:
 -   `cdx_basic_query`: Perform a basic/limited Internet Archive CDX resource query for a URL
 -   `get_mementos`: Retrieve site mementos from the Internet Archive
 -   `get_timemap`: Retrieve a timemap for a URL
+<<<<<<< HEAD
 -   `read_memento`: Read a resource directly from the Time Travel MementoWeb
+=======
+>>>>>>> 6524c336dc2cee192c01ec6f003f509bcba92681
 -   `is_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
 -   `is_first_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
 -   `is_next_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
@@ -17,7 +20,11 @@ The following functions are implemented:
 -   `is_last_memento`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
 -   `is_original`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
 -   `is_timemap`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+<<<<<<< HEAD
 -   `is_timegate`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
+=======
+-   `is_timegate: Various memento-type testers (useful in`purrr`or`dplyr\` contexts)
+>>>>>>> 6524c336dc2cee192c01ec6f003f509bcba92681
 
 ### Installation
 
@@ -78,9 +85,26 @@ cdx_basic_query("https://yahoo.com/", limit = 10) %>%
     ## $ timestamp  <dttm> 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-20, 1996-10-22,...
     ## $ original   <chr> "http://www2.yahoo.com:80/", "http://www2.yahoo.com:80/", "http://www2.yahoo.com:80/", "http://w...
     ## $ mimetype   <chr> "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text...
+<<<<<<< HEAD
     ## $ statuscode <chr> "200", "200", "200", "200", "200", "200", "200", "200", "200", "200"
     ## $ digest     <chr> "LOB7746BGHENCUWDONHQM7NPHUSNKZRN", "LOB7746BGHENCUWDONHQM7NPHUSNKZRN", "LOB7746BGHENCUWDONHQM7N...
     ## $ length     <dbl> 1811, 1811, 1811, 1811, 1811, 1811, 1888, 1954, 1950, 1939
+=======
+    ## $ statuscode <chr> "200", "301", "200", "200", "200", "200", "301", "200", "200", "301", "200", "301", "200", "301"...
+    ## $ digest     <chr> "2DV4A2RNGAQ3CDMNASYIMMJM4TDPOPJC", "5464F3DRRISJGE3E5AJETQETHU6QZRUC", "EHJCAIH4ODA2QONHAHZNIRS...
+    ## $ length     <dbl> 19156, 297, 18595, 19621, 27927, 26159, 298, 25823, 14959, 298, 15237, 297, 15180, 296, 15392, 2...
+
+### Test Results
+
+``` r
+library(wayback)
+library(testthat)
+
+date()
+```
+
+    ## [1] "Tue Feb 28 17:57:33 2017"
+>>>>>>> 6524c336dc2cee192c01ec6f003f509bcba92681
 
 ``` r
 res <- read_memento("https://yahoo.com/")
@@ -89,6 +113,7 @@ res <- c(head(res, 6), tail(res, 8))
 cat(paste0(res, collaspe="\n"))
 ```
 
+<<<<<<< HEAD
     ## <!DOCTYPE html>
     ##  <html id="atomic" lang="en-US" class="atomic my3columns  l-out Pos-r https fp fp-v2 rc1 fp-default mini-uh-on viewer-right ltr desktop Desktop bktUDC001,FP040,SR016,332">
     ##  <head>
@@ -103,3 +128,10 @@ cat(paste0(res, collaspe="\n"))
     ##       SECTION 108(a)(3)).
     ##  -->
     ##
+=======
+    ## testthat results ========================================================================================================
+    ## OK: 47 SKIPPED: 0 FAILED: 0
+    ## 
+    ## DONE ===================================================================================================================
+    ## Keep up the good work.
+>>>>>>> 6524c336dc2cee192c01ec6f003f509bcba92681

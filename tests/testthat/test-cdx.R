@@ -64,6 +64,36 @@ test_that("CDX API connects and produces a tibble with valid inputs", {
 
 })
 
+context("Helpers")
+test_that("is_ helper functions grepl-match correctly", {
+
+  testthat::skip_on_cran()
+  testthat::skip_on_travis()
+  testthat::skip_on_appveyor()
+
+  memento_types <- c("memento", "first memento", "next memento", "last memento",
+                     "prev memento", "original", "timemap", "timegate", "nothing",
+                     NA, NULL)
+
+  expect_equal(is_memento(memento_types),
+               c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_first_memento(memento_types),
+               c(FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_next_memento(memento_types),
+               c(FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_prev_memento(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_last_memento(memento_types),
+               c(FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_original(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE))
+  expect_equal(is_timemap(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE))
+  expect_equal(is_timegate(memento_types),
+               c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE))
+
+})
+
 context("CDX API functionality (failing resolution)")
 test_that("CDX API fails on invalid or missing input", {
 
@@ -82,10 +112,10 @@ test_that("CDX API fails on invalid or missing input", {
   expect_error(cdx_basic_query(NULL))
 
   # test @param matchType
-  expect_error(cdx_basic_query(test_URL, matchType = NA))
-  expect_error(cdx_basic_query(test_URL, matchType = NULL))
-  expect_error(cdx_basic_query(test_URL, matchType = "foo"))
-  expect_error(cdx_basic_query(test_URL, matchType = 9))
+  expect_error(cdx_basic_query(test_URL, match_type = NA))
+  expect_error(cdx_basic_query(test_URL, match_type = NULL))
+  expect_error(cdx_basic_query(test_URL, match_type = "foo"))
+  expect_error(cdx_basic_query(test_URL, match_type = 9))
 
   #test @param limit
   expect_error(cdx_basic_query(test_URL, limit = 0))
