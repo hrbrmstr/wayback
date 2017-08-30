@@ -1,7 +1,9 @@
 
 `wayback` : Tools to Work with the Various Internet Archive Wayback Machine APIs
 
-[![Travis-CI Build Status](https://travis-ci.org/jonocarroll/wayback.svg?branch=dev-cdx)](https://travis-ci.org/jonocarroll/wayback) [![Coverage Status](https://img.shields.io/codecov/c/github/jonocarroll/wayback/dev-cdx.svg)](https://codecov.io/github/jonocarroll/wayback?branch=dev-cdx) <!-- [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/NA/NA?branch=master&svg=true)](https://ci.appveyor.com/project/NA/NA) -->
+[![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/wayback.svg?branch=master)](https://travis-ci.org/hrbrmstr/wayback)
+[![codecov](https://codecov.io/gh/hrbrmstr/wayback/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/wayback)
+[![Appveyor Status](https://ci.appveyor.com/api/projects/status/w9rwdf8a16t0amht/branch/master?svg=true)](https://ci.appveyor.com/project/hrbrmstr/wayback/branch/master)
 
 The following functions are implemented:
 
