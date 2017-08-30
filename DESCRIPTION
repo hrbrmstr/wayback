@@ -3,7 +3,10 @@ Title: Tools to Work with the Various Internet Archive Wayback Machine APIs
 Version: 0.3.0
 Encoding: UTF-8
 Date: 2017-08-30
-Authors@R: c(person("Bob", "Rudis", role = c("aut", "cre"), email = "bob@rud.is"))
+Authors@R: c(
+    person("Bob", "Rudis", role = c("aut", "cre"), email = "bob@rud.is"),
+    person("Jonathan", "Carroll", email = "rpkg@jcarroll.com.au", role = c("ctb"))
+  )
 Maintainer: Bob Rudis <bob@rud.is>
 Description: The 'Internet Archive' provides access to millions of cached
     sites. Methods are provided to access these cached resources through the 'APIs'
