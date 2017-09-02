@@ -2,7 +2,7 @@
 output: rmarkdown::github_document
 ---
 
-`wayback` : Tools to Work with the Various Internet Archive Wayback Machine APIs
+`wayback` : Tools to Work with Internet Archive Wayback Machine APIs
 
 [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/wayback.svg?branch=master)](https://travis-ci.org/hrbrmstr/wayback)
 [![codecov](https://codecov.io/gh/hrbrmstr/wayback/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/wayback)
