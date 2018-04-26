@@ -51,7 +51,7 @@ get_timemap <- function(url, seconds = 180) {
     url <- url[1]
   }
 
-  if (!grepl(url, "^http://web.archive.org")) {
+  if (!stri_detect_regex(url, "^http[s]*://")) {
     url <- sprintf("http://web.archive.org/web/timemap/link/%s", url)
   }
 
@@ -61,16 +61,18 @@ get_timemap <- function(url, seconds = 180) {
 
   res <- httr::content(res, as="text", encoding="UTF-8")
 
-  stri_split_fixed(res, ",\n") %>%
+  stri_split_lines(res) %>%
     flatten_chr() %>%
-    map_df(function(x) {
+    stri_trim_both() %>%
+    purrr::map_df(function(x) {
       link <- stri_match_first_regex(x, "^<(.*)>;")[,2]
-      parts <- flatten_chr(stri_split_fixed(x, "; "))
-      stri_match_all_regex(parts[-1], '([[:alpha:]]+)="(.*)"') %>%
+      parts <- purrr::flatten_chr(stri_split_regex(x, ";"))
+      parts <- stri_trim_both(parts)
+      stri_match_all_regex(parts[-1], '([[:alpha:]]+)[[:space:]]*=[[:space:]]*"(.*)"') %>%
         purrr::map(~.[,2:3]) %>%
-        purrr::map(~as.list(set_names(.[2], .[1]))) %>%
-        flatten_df() %>%
-        mutate(link=link)
+        purrr::map(~as.list(purrr::set_names(.[2], .[1]))) %>%
+        purrr::flatten_df() %>%
+        dplyr::mutate(link=link)
     })
 
 }
