@@ -1,6 +1,6 @@
 #' Perform a basic/limited Internet Archive CDX resource query for a URL
 #'
-#' CDX files are "Content Index" files. The Waybackcdx CDX server is a standalone HTTP
+#' CDX files are "Content Index" files. The Wayback CDX server is a standalone HTTP
 #' servlet that serves the index that the Wayback machine uses to lookup captures.
 #'
 #' The index format is known as 'cdx' and contains various fields representing the capture,

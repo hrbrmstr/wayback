@@ -21,7 +21,7 @@ negative number to retrieve the last \emph{n} results. Default is \code{10,000}.
 data frame
 }
 \description{
-CDX files are "Content Index" files. The Waybackcdx CDX server is a standalone HTTP
+CDX files are "Content Index" files. The Wayback CDX server is a standalone HTTP
 servlet that serves the index that the Wayback machine uses to lookup captures.
 }
 \details{

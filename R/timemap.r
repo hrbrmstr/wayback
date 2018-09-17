@@ -69,7 +69,8 @@ get_timemap <- function(url, seconds = 180) {
 
   purrr::map_df(tmp, function(x) {
 
-    link <- stri_replace_all_regex(x[1], "^<|<$", "")
+    link <- stri_replace_first_fixed(x[1], "<", "")
+    link <- stri_replace_last_fixed(link, ">", "")
 
     x <- x[-1]
     x <- stri_split_fixed(x, "=", 2, simplify = TRUE)
