@@ -1,0 +1,6 @@
+pandoc: '2.2'
+pkgdown: 1.0.0
+pkgdown_sha: ~
+articles:
+  intro-to-mementos: intro-to-mementos.html
+
