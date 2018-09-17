@@ -47,7 +47,8 @@ The following functions are implemented:
 
 **Scrape API**
 
-  - `ia_retrieve`: Retrieve directory listings for Internet Archive objects by identifier
+  - `ia_retrieve:` Retrieve directory listings for Internet Archive
+    objects by identifier
   - `ia_scrape`: Internet Archive Scraping API Access
   - `ia_scrape_has_more`: ‘ia\_scrape()’ Pagination Helpers
   - `ia_scrape_next_page`: Internet Archive Scraping API Access
@@ -68,72 +69,126 @@ library(tidyverse)
 packageVersion("wayback")
 ```
 
-    ## [1] '0.3.0'
+    ## [1] '0.4.0'
 
 ### Memento-ish things
 
 ``` r
-archive_available("https://yahoo.com/")
+archive_available("https://www.r-project.org/news.html")
 ```
 
     ## # A tibble: 1 x 5
-    ##   url                available closet_url                                                    timestamp           status
-    ##   <chr>              <lgl>     <chr>                                                         <dttm>              <chr> 
-    ## 1 https://yahoo.com/ TRUE      http://web.archive.org/web/20180917134123/https://www.yahoo.… 2018-09-17 00:00:00 200
+    ##   url                                 available closet_url                                   timestamp           status
+    ##   <chr>                               <lgl>     <chr>                                        <dttm>              <chr> 
+    ## 1 https://www.r-project.org/news.html TRUE      http://web.archive.org/web/20180717184942/h… 2018-07-17 00:00:00 200
 
 ``` r
-get_mementos("https://yahoo.com/")
+get_mementos("https://www.r-project.org/news.html")
 ```
 
-    ## # A tibble: 0 x 0
-
-This one takes too long to regen every time
+    ## # A tibble: 7 x 3
+    ##   link                                                                            rel           ts                 
+    ##   <chr>                                                                           <chr>         <dttm>             
+    ## 1 https://www.r-project.org/news.html                                             original      NA                 
+    ## 2 http://web.archive.org/web/timemap/link/https://www.r-project.org/news.html     timemap       NA                 
+    ## 3 http://web.archive.org/web/https://www.r-project.org/news.html                  timegate      NA                 
+    ## 4 http://web.archive.org/web/20041015031109/http://www.r-project.org:80/news.html first memento 2004-10-15 03:11:09
+    ## 5 http://web.archive.org/web/20180717184942/https://www.r-project.org/news.html   prev memento  2018-07-17 18:49:42
+    ## 6 http://web.archive.org/web/20180912073722/https://www.r-project.org/news.html   memento       2018-09-12 07:37:22
+    ## 7 http://web.archive.org/web/20180912073722/https://www.r-project.org/news.html   last memento  2018-09-12 07:37:22
 
 ``` r
-get_timemap("https://yahoo.com/")
+get_timemap("https://www.r-project.org/news.html")
 ```
 
+    ## # A tibble: 136 x 11
+    ##    link      The.R.Foundation..… xfcnbtufsAs.qsp… V     for..i i.s.length i.....if.s.char… X..else.if..s.c… X..else..m.
+    ##    <chr>     <chr>               <chr>            <chr> <chr>  <chr>      <chr>            <chr>            <chr>      
+    ##  1 !DOCTYPE… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  2 "html la… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  3 head      <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  4 "meta ch… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  5 "meta ht… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  6 "meta na… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  7 title>R:… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  8 ""        <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ##  9 "link re… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ## 10 "link re… <NA>                <NA>             <NA>  <NA>   <NA>       <NA>             <NA>             <NA>       
+    ## # ... with 126 more rows, and 2 more variables: X..document.write.m. <chr>, X..... <chr>
+
 ``` r
-cdx_basic_query("https://yahoo.com/", limit = 10) %>% 
+cdx_basic_query("https://www.r-project.org/news.html", limit = 10) %>% 
   glimpse()
 ```
 
     ## Observations: 10
     ## Variables: 7
-    ## $ urlkey     <chr> "com,yahoo)/", "com,yahoo)/", "com,yahoo)/", "com,yahoo)/", "com,yahoo)/", "com,yahoo)/", "com,y...
-    ## $ timestamp  <dttm> 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-17, 1996-10-20,...
-    ## $ original   <chr> "http://www2.yahoo.com:80/", "http://www2.yahoo.com:80/", "http://www2.yahoo.com:80/", "http://w...
+    ## $ urlkey     <chr> "org,r-project)/news.html", "org,r-project)/news.html", "org,r-project)/news.html", "org,r-proje...
+    ## $ timestamp  <dttm> 2004-10-15, 2005-03-08, 2005-11-06, 2005-12-18, 2006-02-08, 2006-04-26, 2006-06-16, 2006-07-19,...
+    ## $ original   <chr> "http://www.r-project.org:80/news.html", "http://www.r-project.org:80/news.html", "http://www.r-...
     ## $ mimetype   <chr> "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text...
     ## $ statuscode <chr> "200", "200", "200", "200", "200", "200", "200", "200", "200", "200"
-    ## $ digest     <chr> "LOB7746BGHENCUWDONHQM7NPHUSNKZRN", "LOB7746BGHENCUWDONHQM7NPHUSNKZRN", "LOB7746BGHENCUWDONHQM7N...
-    ## $ length     <dbl> 1811, 1811, 1811, 1811, 1811, 1811, 1811, 1888, 1954, 1950
+    ## $ digest     <chr> "SMRZAAPERPEU7ITWC2IBQOFZZ6KAVOYW", "5JHISLTUZUDE4FOVU4HEFNRJASMQTUHO", "RUDVI4NRO36J2VELVNNUP6Q...
+    ## $ length     <dbl> 793, 846, 897, 898, 918, 916, 902, 905, 902, 902
 
 ``` r
-res <- read_memento("https://yahoo.com/")
-res <- stringi::stri_split_lines(res)[[1]]
-res <- c(head(res, 6), tail(res, 8))
-cat(paste0(res, collaspe="\n"))
+mem <- read_memento("https://www.r-project.org/news.html")
+res <- stringi::stri_split_lines(mem)[[1]]
+cat(paste0(res[187:200], collaspe="\n"))
 ```
 
-    ## <!DOCTYPE html><html style="background-color:#EEEEEE" prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#" itemscope itemtype="http://schema.org/Article"><!--50.252.233.22--><!--libcurl/7.54.0 r-curl/3.2 httr/1.3.1--><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8"/><meta name="robots" content="index,noarchive"/><meta property="twitter:card" content="summary"/><meta property="twitter:site" content="@archiveis"/><meta property="og:type" content="article"/><meta property="og:site_name" content="archive.is"/><meta property="og:url" content="http://archive.is/YWPHo" itemprop="url"/><meta property="og:title" content="Yahoo"/><meta property="twitter:title" content="Yahoo"/><meta property="twitter:description" content="archived 16 Dec 2017 07:40:22 UTC" itemprop="description"/><meta property="article:published_time" content="2017-12-16T07:40:22Z" itemprop="dateCreated"/><meta property="article:modified_time" content="2017-12-16T07:40:22Z" itemprop="dateModified"/><link rel="image_src" href="https://archive.is/YWPHo/ae692322efb331c386efc2fc522716138ebc8317/scr.png"/><meta property="og:image" content="https://archive.is/YWPHo/ae692322efb331c386efc2fc522716138ebc8317/scr.png" itemprop="image"/><meta property="twitter:image" content="https://archive.is/YWPHo/ae692322efb331c386efc2fc522716138ebc8317/scr.png"/><meta property="twitter:image:src" content="https://archive.is/YWPHo/ae692322efb331c386efc2fc522716138ebc8317/scr.png"/><meta property="twitter:image:width" content="1024"/><meta property="twitter:image:height" content="768"/><link rel="icon" href="//www.google.com/s2/favicons?domain=www.yahoo.com"/><link rel="canonical" href="https://archive.is/YWPHo"/><link rel="bookmark" href="http://archive.today/20171216074022/https://www.yahoo.com/"/><title>Yahoo</title><style type="text/css">@font-face {
-    ##  font-family:Advance-Fp2;
-    ##  src: url('http://archive.is/YWPHo/138ab1ce83f4739165234c6ec2b47dd6aee02bc4') format('woff'), url('http://archive.is/YWPHo/d2abc5de92479d25e5b41c95e43721346361516f.ttf') format('truetype');
-    ##  }
-    ##  @font-face {
-    ##  font-family:Yglyphs-legacy;
-    ##    var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
-    ##    if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
-    ##  })(document, window, "topmailru-code");
-    ##  document.cookie="_ga=GA1.2.661111166."+Math.floor((new Date()).getTime()/1000)+";expires="+(new Date((new Date()).getTime()+2*60*60*1000)).toUTCString()+";path=/";
-    ##  </script><noscript><div style="position:absolute;left:-10000px;">
-    ##  <img src="//top-fwz1.mail.ru/counter?id=2825109;js=na" style="border:0;" height="1" width="1"/>
-    ##  </div></noscript>
-    ##  <img width="1" height="1" src="http://50.252.233.22.us.NCP2.208024736.pixel.archive.is/pixel.gif"/><div style="padding:200px 0;min-width:1028px;background-color:#EEEEEE"></div></center></body></html>
+    ## <li><a href="/all/20180102193419/https://www.r-project.org/about.html">About R</a></li>
+    ##  <li><a href="/all/20180102193419/https://www.r-project.org/logo/">Logo</a></li>
+    ##  <li><a href="/all/20180102193419/https://www.r-project.org/contributors.html">Contributors</a></li>
+    ##  <li><a href="/all/20180102193419/https://www.r-project.org/news.html">What’s New?</a></li>
+    ##  <li><a href="/all/20180102193419/https://www.r-project.org/bugs.html">Reporting Bugs</a></li>
+    ##  <li><a href="http://wayback.archive-it.org/all/20180102193419/http://developer.r-project.org/">Development Site</a></li>
+    ##  <li><a href="/all/20180102193419/https://www.r-project.org/conferences.html">Conferences</a></li>
+    ##  <li><a href="/all/20180102193419/https://www.r-project.org/search.html">Search</a></li>
+    ##  </ul>
+    ##  </div>
+    ##  <div class="col-xs-6 col-sm-12">
+    ##  <h2 id="r-foundation">R Foundation</h2>
+    ##  <ul>
+    ##  <li><a href="/all/20180102193419/https://www.r-project.org/foundation/">Foundation</a></li>
 
 ### Scrape API
 
 ``` r
-ia_scrape("lemon curry")
+glimpse(
+  ia_scrape("lemon curry")
+)
+```
+
+    ## Observations: 130
+    ## Variables: 3
+    ## $ identifier <chr> "30minutemeals00rach", "A-logOnTheAirwaves-11417specialTopicCartoons", "ButterChicken", "CNNW_20...
+    ## $ addeddate  <chr> "2012-02-03T22:39:43Z", "2017-11-04T17:12:27Z", "2013-10-25T04:29:37Z", NA, NA, NA, NA, NA, NA, ...
+    ## $ title      <chr> "30-minute meals", "A-Log on the Airwaves - 11/4/17 (Special Topic: Cartoons)", "Butter Chicken ...
+
+``` r
+(nasa <- ia_scrape("collection:nasa", count=100L))
 ```
 
     ## <ia_scrape object>
+    ## Cursor: W3siaWRlbnRpZmllciI6IjAzLTEwLTE4X1NwYWNlLXRvLUdyb3VuZHMuemlwIn1d
+
+``` r
+(item <- ia_retrieve(nasa$identifier[1]))
+```
+
+    ## # A tibble: 6 x 4
+    ##   file                       link                                                               last_mod          size 
+    ##   <chr>                      <chr>                                                              <chr>             <chr>
+    ## 1 00-042-154.jpg             https://archive.org/download/00-042-154/00-042-154.jpg             06-Nov-2000 15:34 1.2M 
+    ## 2 00-042-154_archive.torrent https://archive.org/download/00-042-154/00-042-154_archive.torrent 06-Jul-2018 11:14 1.8K 
+    ## 3 00-042-154_files.xml       https://archive.org/download/00-042-154/00-042-154_files.xml       06-Jul-2018 11:14 1.7K 
+    ## 4 00-042-154_meta.xml        https://archive.org/download/00-042-154/00-042-154_meta.xml        03-Jun-2016 02:06 1.4K 
+    ## 5 00-042-154_thumb.jpg       https://archive.org/download/00-042-154/00-042-154_thumb.jpg       26-Aug-2009 16:30 7.7K 
+    ## 6 __ia_thumb.jpg             https://archive.org/download/00-042-154/__ia_thumb.jpg             06-Jul-2018 11:14 26.6K
+
+``` r
+download.file(item$link[1], file.path("man/figures", item$file[1]))
+```
+
+![](man/figures/00-042-154.jpg)

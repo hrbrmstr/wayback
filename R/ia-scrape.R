@@ -95,7 +95,7 @@ ia_scrape_has_more <- function(obj) {
   !is.null(attr(obj, "cursor"))
 }
 
-#' @rdname ia_scrape
+#' @rdname ia_scrape_has_more
 #' @export
 ia_scrape_next_page <- function(obj) {
 

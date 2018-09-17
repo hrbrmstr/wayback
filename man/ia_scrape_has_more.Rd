@@ -2,9 +2,12 @@
 % Please edit documentation in R/ia-scrape.R
 \name{ia_scrape_has_more}
 \alias{ia_scrape_has_more}
+\alias{ia_scrape_next_page}
 \title{\code{\link[=ia_scrape]{ia_scrape()}} Pagination Helpers}
 \usage{
 ia_scrape_has_more(obj)
+
+ia_scrape_next_page(obj)
 }
 \arguments{
 \item{obj}{an object returned by \code{\link[=ia_scrape_next_page]{ia_scrape_next_page()}} or \code{\link[=ia_scrape]{ia_scrape()}}}

@@ -64,28 +64,26 @@ packageVersion("wayback")
 ### Memento-ish things
 
 ```{r avail, message=FALSE, warning=FALSE, error=FALSE}
-archive_available("https://yahoo.com/")
+archive_available("https://www.r-project.org/news.html")
 ```
 
 ```{r get_memento, message=FALSE, warning=FALSE, error=FALSE}
-get_mementos("https://yahoo.com/")
+get_mementos("https://www.r-project.org/news.html")
 ```
 
-This one takes too long to regen every time
-```{r get_time, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
-get_timemap("https://yahoo.com/")
+```{r get_time, message=FALSE, warning=FALSE, error=FALSE}
+get_timemap("https://www.r-project.org/news.html")
 ```
 
 ```{r basic_q, message=FALSE, warning=FALSE, error=FALSE}
-cdx_basic_query("https://yahoo.com/", limit = 10) %>% 
+cdx_basic_query("https://www.r-project.org/news.html", limit = 10) %>% 
   glimpse()
 ```
 
 ```{r read_mem, message=FALSE, warning=FALSE, error=FALSE}
-res <- read_memento("https://yahoo.com/")
-res <- stringi::stri_split_lines(res)[[1]]
-res <- c(head(res, 6), tail(res, 8))
-cat(paste0(res, collaspe="\n"))
+mem <- read_memento("https://www.r-project.org/news.html")
+res <- stringi::stri_split_lines(mem)[[1]]
+cat(paste0(res[187:200], collaspe="\n"))
 ```
 
 ### Scrape API
@@ -95,3 +93,14 @@ glimpse(
   ia_scrape("lemon curry")
 )
 ```
+
+```{r}
+(nasa <- ia_scrape("collection:nasa", count=100L))
+
+(item <- ia_retrieve(nasa$identifier[1]))
+
+download.file(item$link[1], file.path("man/figures", item$file[1]))
+```
+
+![](man/figures/`r item$file[1]`)
+

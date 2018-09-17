@@ -2,13 +2,10 @@
 % Please edit documentation in R/ia-scrape.R
 \name{ia_scrape}
 \alias{ia_scrape}
-\alias{ia_scrape_next_page}
 \title{Internet Archive Scraping API Access}
 \usage{
 ia_scrape(query, fields = c("identifier", "addeddate", "title"),
   sorts = "identifier asc", count = 5000L, summary = FALSE)
-
-ia_scrape_next_page(obj)
 }
 \arguments{
 \item{query}{the query; \href{http://www.lucenetutorial.com/lucene-query-syntax.html}{Lucene-like query};
