@@ -2,13 +2,23 @@
 output: rmarkdown::github_document
 ---
 
-`wayback` : Tools to Work with Internet Archive Wayback Machine APIs
-
 [![Travis-CI Build Status](https://travis-ci.org/hrbrmstr/wayback.svg?branch=master)](https://travis-ci.org/hrbrmstr/wayback)
 [![codecov](https://codecov.io/gh/hrbrmstr/wayback/branch/master/graph/badge.svg)](https://codecov.io/gh/hrbrmstr/wayback)
 [![Appveyor Status](https://ci.appveyor.com/api/projects/status/w9rwdf8a16t0amht/branch/master?svg=true)](https://ci.appveyor.com/project/hrbrmstr/wayback/branch/master)
 
+# wayback
+
+Tools to Work with Internet Archive Wayback Machine APIs
+
+## Description
+
+The 'Internet Archive' provides access to millions of cached sites. Methods are provided to access these cached resources through the 'APIs' provided by the 'Internet Archive' and also content from 'MementoWeb'.
+
+## What's Inside the Tin?
+
 The following functions are implemented:
+
+**Memento-ish API**:
 
 - `archive_available`:	Does the Internet Archive have a URL cached?
 - `cdx_basic_query`:	Perform a basic/limited Internet Archive CDX resource query for a URL
@@ -24,7 +34,13 @@ The following functions are implemented:
 - `is_timemap`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
 - `is_timegate`: Various memento-type testers (useful in `purrr` or `dplyr` contexts)
 
-### Installation
+**Scrape API**
+
+- `ia_scrape`:	Internet Archive Scraping API Access
+- `ia_scrape_has_more`:	'ia_scrape()' Pagination Helpers
+- `ia_scrape_next_page`:	Internet Archive Scraping API Access
+
+## Installation
 
 ```{r eval=FALSE}
 devtools::install_github("hrbrmstr/wayback")
@@ -34,7 +50,7 @@ devtools::install_github("hrbrmstr/wayback")
 options(width=120)
 ```
 
-### Usage
+## Usage
 
 ```{r message=FALSE, warning=FALSE, error=FALSE}
 library(wayback)
@@ -44,6 +60,7 @@ library(tidyverse)
 packageVersion("wayback")
 ```
 
+### Memento-ish things
 
 ```{r avail, message=FALSE, warning=FALSE, error=FALSE}
 archive_available("https://yahoo.com/")
@@ -68,4 +85,12 @@ res <- read_memento("https://yahoo.com/")
 res <- stringi::stri_split_lines(res)[[1]]
 res <- c(head(res, 6), tail(res, 8))
 cat(paste0(res, collaspe="\n"))
+```
+
+### Scrape API
+
+```{r}
+glimpse(
+  ia_scrape("lemon curry")
+)
 ```

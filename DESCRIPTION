@@ -1,8 +1,8 @@
 Package: wayback
 Title: Tools to Work with Internet Archive Wayback Machine APIs
-Version: 0.3.0
+Version: 0.4.0
 Encoding: UTF-8
-Date: 2017-08-30
+Date: 2017-09-17
 Authors@R: c(
     person("Bob", "Rudis", role = c("aut", "cre"), email = "bob@rud.is"),
     person("Jonathan", "Carroll", email = "rpkg@jcarroll.com.au", role = c("ctb"))
@@ -19,7 +19,9 @@ BugReports: https://github.com/hrbrmstr/wayback/issues
 LazyData: true
 Suggests:
     testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Imports:
     purrr,
     httr,
@@ -28,5 +30,7 @@ Imports:
     lazyeval,
     anytime,
     jsonlite,
+    memoise,
     stringi
 RoxygenNote: 6.0.1.9000
+VignetteBuilder: knitr

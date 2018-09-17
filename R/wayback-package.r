@@ -12,4 +12,5 @@
 #' @importFrom tibble as_tibble data_frame
 #' @importFrom jsonlite fromJSON
 #' @importFrom dplyr mutate select
+#' @importFrom memoise memoise
 NULL

@@ -1,0 +1,58 @@
+---
+title: "Intro to Mementos"
+author: "Bob Rudis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Intro to Mementos}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+We can use `wayback` to look at many historical things. Here's how to dive into saved site RSS feeds. We'll search the Internet Archive for these saved RSS feed documents ("mementos"). You can research a bit more about web archiving terminology (it's a bit arcane --- at times --- IMO) via <http://www.mementoweb.org/guide/quick-intro/> & <https://mementoweb.org/guide/rfc/> as starter resources.
+
+```{r}
+library(xml2)
+library(wayback) 
+library(tibble) 
+```
+
+First, we get the recorded mementos (basically a short-list of relevant content):
+
+```{r}
+(rss <- get_mementos("http://www.dailyecho.co.uk/news/district/winchester/rss/"))
+```
+
+The calendar-menu viewer thing at IA is really the "timemap". I like to work with this as it's the point-in-time memento list of all the crawls. It's the second link above so we'll read it in:
+    
+```{r}
+(tm <- get_timemap(rss$link[2]))
+```
+
+The content is in the mementos and there should be as many mementos there as you see in the calendar view. We'll read in the first one:
+    
+```{r}
+mem <- read_memento(tm$link)
+```
+
+Ideally use `writeLines()`, now, to save this to disk with a good filename. Alternatively, stick it in a data frame with metadata and `saveRDS()` it. But, that's not a format others (outside R) can use so perhaps do the data frame thing and stream it out as `ndjson` with `jsonlite::stream_out()` and compress it during save or afterwards.
+    
+Then convert it to something we can use programmatically with `xml2::read_xml()` or `xml2::read_html()` (RSS is sometimes better parsed as XML):
+
+```{r}
+xml_find_all(
+  read_xml(mem),
+  ".//title"
+)
+```
+
+`read_memento()` has an `as` parameter to automagically parse the result but I like to store the mementos locally (as noted previously) so as not to abuse the IA servers (i.e. if I ever need to get the data again I don't have to hit their infrastructure).
+
+A big caveat is that if you try to get too many resources from the IA in a short period of time you'll get temporarily banned as they have scale but it's a free service and they (rightfully) try to prevent abuse.
