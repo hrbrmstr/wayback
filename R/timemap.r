@@ -51,8 +51,6 @@ get_timemap <- function(url, seconds = 180) {
     url <- url[1]
   }
 
-  url <- vox$link[2]
-
   if (!stri_detect_regex(url, "^http[s]*://")) {
     url <- sprintf("http://web.archive.org/web/timemap/link/%s", url)
   }
