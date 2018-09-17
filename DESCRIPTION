@@ -27,6 +27,8 @@ Imports:
     httr,
     tibble,
     dplyr,
+    xml2,
+    rvest,
     lazyeval,
     anytime,
     jsonlite,

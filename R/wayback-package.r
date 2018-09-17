@@ -9,6 +9,8 @@
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
 #' @import purrr httr anytime stringi
+#' @importFrom xml2 read_html
+#' @importFrom rvest html_nodes html_text html_attr
 #' @importFrom tibble as_tibble data_frame
 #' @importFrom jsonlite fromJSON
 #' @importFrom dplyr mutate select
