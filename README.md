@@ -47,6 +47,7 @@ The following functions are implemented:
 
 **Scrape API**
 
+  - `ia_retrieve`: Retrieve directory listings for Internet Archive objects by identifier
   - `ia_scrape`: Internet Archive Scraping API Access
   - `ia_scrape_has_more`: ‘ia\_scrape()’ Pagination Helpers
   - `ia_scrape_next_page`: Internet Archive Scraping API Access
