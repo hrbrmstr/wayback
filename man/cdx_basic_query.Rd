@@ -5,7 +5,7 @@
 \title{Perform a basic/limited Internet Archive CDX resource query for a URL}
 \usage{
 cdx_basic_query(url, match_type = c("exact", "prefix", "host", "domain"),
-  collapse = "urlkey", limit = 10000L)
+  collapse = "urlkey", filter = "statuscode:200", limit = 10000L)
 }
 \arguments{
 \item{url}{URL/resource to query for}
@@ -22,6 +22,11 @@ To use collapsing, add one or more \code{collapse=field} or \code{collapse=field
 where \code{N} is the first \code{N} characters of field to test. Use \code{NULL} for
 no collapsing Default is to collapse by \code{urlkey} (like the web UX).
 Reference: \url{https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server}.}
+
+\item{filter}{a valid \href{https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server#filtering}{filter string}
+(without the \code{filter=} or \code{NULL}. The default filter string is
+\code{statuscode:200} to only retrieve resources with an HTTP
+\code{200} (\code{OK}) status code. Set to \code{NULL} for no filtering.}
 
 \item{limit}{Maximum number of results to return (first \emph{n} results). Use a
 negative number to retrieve the last \emph{n} results. Default is \code{10,000}.}

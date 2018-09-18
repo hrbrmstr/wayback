@@ -18,6 +18,10 @@
 #'        where `N` is the first `N` characters of field to test. Use `NULL` for
 #'        no collapsing Default is to collapse by `urlkey` (like the web UX).
 #'        Reference: <https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server>.
+#' @param filter a valid [filter string](https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server#filtering)
+#'        (without the `filter=` or `NULL`. The default filter string is
+#'        `statuscode:200` to only retrieve resources with an HTTP
+#'        `200` (`OK`) status code. Set to `NULL` for no filtering.
 #' @param limit Maximum number of results to return (first _n_ results). Use a
 #'        negative number to retrieve the last _n_ results. Default is `10,000`.
 #'
@@ -42,6 +46,7 @@
 cdx_basic_query <- function(url,
                             match_type = c("exact", "prefix", "host", "domain"),
                             collapse = "urlkey",
+                            filter = "statuscode:200",
                             limit = 1e4L) {
 
   if (missing(url) || is.null(url) || is.na(url) || url == "" || !is.character(url)) {
@@ -68,6 +73,7 @@ cdx_basic_query <- function(url,
       url = url_enc,
       output = "json",
       collapse = collapse,
+      filter = filter,
       matchType = match_type,
       limit = limit
     )
