@@ -21,7 +21,8 @@ Suggests:
     testthat,
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    readr
 Imports:
     purrr,
     httr,

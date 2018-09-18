@@ -1,0 +1,64 @@
+---
+title: "Intro to the 'CDX Basic Query' Interface"
+author: "Bob Rudis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Intro to the 'CDX Basic Query' Interface}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+When you make a resource query in the [main Wayback web interface](https://web.archive.org/) you're tapping into the [Wayback CDX API](https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server). The `cdx_basic_query()` function in this package is a programmatic interface to that API.
+
+An example use-case was presented in [GitHub Issue #3](https://github.com/hrbrmstr/wayback/issues/3) where the issue originator desired to query for historical CSV files from [MaxMind](https://www.maxmind.com/en/home).
+
+The `cdx_basic_query()` function has the following parameters (you must at least specify the `url` on your own):
+
+- `match_type`: "`exact`" (exact URL search)
+- `collapse`: "`urlkey`" (only show unique URLs)
+- `filter`: "`statuscode:200`" (only show resources with an HTTP 200 response code)
+- `limit`: "`1e4L`" (return `10000` records; you can go higher)
+
+For `match_type`, if `url` is "`url: archive.org/about/`" then:
+
+- "`exact`" will return results matching exactly `archive.org/about/`
+- "`prefix`" will return results for all results under the path `archive.org/about/`
+- "`host`" will return results from host `archive.org`
+- "`domain`" will return results from host `archive.org` and all subhosts `*.archive.org`
+
+For `collapse` the results returned are "collapsed" based on a field, or a substring of a field. Collapsing is done on adjacent cdx lines where all captures after the first one that are duplicate are filtered out. This is useful for filtering out captures that are 'too dense' or when looking for unique captures.
+
+For now, `filter` is limited to a single expression. This will be enhanced at a later time.
+
+To put the use-case into practice we'll find CSV resources and download one of them:
+
+```{r}
+library(wayback)
+library(dplyr)
+
+# query for maxmind prefix
+cdx <- cdx_basic_query("http://maxmind.com/", "prefix")
+
+# filter the returned results for CSV files
+(csv <- filter(cdx, grepl("\\.csv", original)))
+
+# examine a couple fields
+csv$original[9]
+
+csv$timestamp[9]
+
+# read the resource from that point in time using the "raw" 
+# interface so as not to mangle the data.
+dat <- read_memento(csv$original[9], as.POSIXct(csv$timestamp[9]), "raw")
+
+# read it in
+readr::read_csv(dat, col_names = c("iso2c", "regcod", "name"))
+```
