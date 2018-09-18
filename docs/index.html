@@ -54,6 +54,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/intro-to-cdx-basic-query.html">Intro to the 'CDX Basic Query' Interface</a>
+    </li>
+    <li>
       <a href="articles/intro-to-mementos.html">Intro to Mementos</a>
     </li>
   </ul>
@@ -189,15 +192,15 @@
 ## # ... with 126 more rows, and 2 more variables: X..document.write.m. &lt;chr&gt;, X..... &lt;chr&gt;</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="reference/cdx_basic_query.html">cdx_basic_query</a></span>(<span class="st">"https://www.r-project.org/news.html"</span>, <span class="dt">limit =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">  </span><span class="kw">glimpse</span>()</a></code></pre></div>
-<pre><code>## Observations: 10
+<pre><code>## Observations: 1
 ## Variables: 7
-## $ urlkey     &lt;chr&gt; "org,r-project)/news.html", "org,r-project)/news.html", "org,r-project)/news.html", "org,r-proje...
-## $ timestamp  &lt;dttm&gt; 2004-10-15, 2005-03-08, 2005-11-06, 2005-12-18, 2006-02-08, 2006-04-26, 2006-06-16, 2006-07-19,...
-## $ original   &lt;chr&gt; "http://www.r-project.org:80/news.html", "http://www.r-project.org:80/news.html", "http://www.r-...
-## $ mimetype   &lt;chr&gt; "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text/html", "text...
-## $ statuscode &lt;chr&gt; "200", "200", "200", "200", "200", "200", "200", "200", "200", "200"
-## $ digest     &lt;chr&gt; "SMRZAAPERPEU7ITWC2IBQOFZZ6KAVOYW", "5JHISLTUZUDE4FOVU4HEFNRJASMQTUHO", "RUDVI4NRO36J2VELVNNUP6Q...
-## $ length     &lt;dbl&gt; 793, 846, 897, 898, 918, 916, 902, 905, 902, 902</code></pre>
+## $ urlkey     &lt;chr&gt; "org,r-project)/news.html"
+## $ timestamp  &lt;dttm&gt; 2004-10-15
+## $ original   &lt;chr&gt; "http://www.r-project.org:80/news.html"
+## $ mimetype   &lt;chr&gt; "text/html"
+## $ statuscode &lt;chr&gt; "200"
+## $ digest     &lt;chr&gt; "SMRZAAPERPEU7ITWC2IBQOFZZ6KAVOYW"
+## $ length     &lt;dbl&gt; 793</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">mem &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_memento.html">read_memento</a></span>(<span class="st">"https://www.r-project.org/news.html"</span>)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">res &lt;-<span class="st"> </span>stringi<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/stringi/topics/stri_split_lines">stri_split_lines</a></span>(mem)[[<span class="dv">1</span>]]</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">cat</span>(<span class="kw">paste0</span>(res[<span class="dv">187</span><span class="op">:</span><span class="dv">200</span>], <span class="dt">collaspe=</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>))</a></code></pre></div>

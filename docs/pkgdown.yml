@@ -2,5 +2,6 @@ pandoc: '2.2'
 pkgdown: 1.0.0
 pkgdown_sha: ~
 articles:
+  intro-to-cdx-basic-query: intro-to-cdx-basic-query.html
   intro-to-mementos: intro-to-mementos.html
 

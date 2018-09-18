@@ -82,6 +82,9 @@ servlet that serves the index that the Wayback machine uses to lookup captures."
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/intro-to-cdx-basic-query.html">Intro to the 'CDX Basic Query' Interface</a>
+    </li>
+    <li>
       <a href="../articles/intro-to-mementos.html">Intro to Mementos</a>
     </li>
   </ul>
@@ -123,7 +126,7 @@ servlet that serves the index that the Wayback machine uses to lookup captures.<
     </div>
 
     <pre class="usage"><span class='fu'>cdx_basic_query</span>(<span class='no'>url</span>, <span class='kw'>match_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"exact"</span>, <span class='st'>"prefix"</span>, <span class='st'>"host"</span>, <span class='st'>"domain"</span>),
-  <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>10000L</span>)</pre>
+  <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='st'>"urlkey"</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='st'>"statuscode:200"</span>, <span class='kw'>limit</span> <span class='kw'>=</span> <span class='fl'>10000L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,6 +140,24 @@ servlet that serves the index that the Wayback machine uses to lookup captures.<
       <td><p>The CDX server can also return results matching a certain
 prefix, a certain host or all subdomains. Can be one of
 <code>"exact"</code>, <code>"prefix"</code>, <code>"host"</code>, or <code>"domain"</code> (defaults to <code>exact</code>).</p></td>
+    </tr>
+    <tr>
+      <th>collapse</th>
+      <td><p>collapse results based on a field, or a substring of a field.
+Collapsing is done on adjacent cdx lines where all captures after the
+first one that are duplicate are filtered out. This is useful for filtering
+out captures that are 'too dense' or when looking for unique captures.
+To use collapsing, add one or more <code>collapse=field</code> or <code>collapse=field:N</code>
+where <code>N</code> is the first <code>N</code> characters of field to test. Use <code>NULL</code> for
+no collapsing Default is to collapse by <code>urlkey</code> (like the web UX).
+Reference: <a href='https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server'>https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server</a>.</p></td>
+    </tr>
+    <tr>
+      <th>filter</th>
+      <td><p>a valid <a href='https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server#filtering'>filter string</a>
+(without the <code>filter=</code> or <code>NULL</code>. The default filter string is
+<code>statuscode:200</code> to only retrieve resources with an HTTP
+<code>200</code> (<code>OK</code>) status code. Set to <code>NULL</code> for no filtering.</p></td>
     </tr>
     <tr>
       <th>limit</th>
