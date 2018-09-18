@@ -36,7 +36,8 @@ read_memento <- function(url, timestamp=format(Sys.Date(), "%Y"),
   as <- match.arg(as, c("text", "raw", "parsed"))
 
   if (is.null(timestamp)) timestamp <- format(Sys.Date(), "%Y")
-  if (timestamp == "") timestamp <- format(Sys.Date(), "%Y")
+  if (is.character(timestamp) && (timestamp == "")) timestamp <- format(Sys.Date(), "%Y")
+  if (inherits(timestamp, "POSIXct")) timestamp <- format(timestamp, "%Y%m%d%H%M%S")
 
   timestamp <- timestamp[1]
   url <- url[1]
