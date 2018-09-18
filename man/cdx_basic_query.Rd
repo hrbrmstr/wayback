@@ -5,7 +5,7 @@
 \title{Perform a basic/limited Internet Archive CDX resource query for a URL}
 \usage{
 cdx_basic_query(url, match_type = c("exact", "prefix", "host", "domain"),
-  limit = 10000L)
+  collapse = "urlkey", limit = 10000L)
 }
 \arguments{
 \item{url}{URL/resource to query for}
@@ -13,6 +13,15 @@ cdx_basic_query(url, match_type = c("exact", "prefix", "host", "domain"),
 \item{match_type}{The CDX server can also return results matching a certain
 prefix, a certain host or all subdomains. Can be one of
 \code{"exact"}, \code{"prefix"}, \code{"host"}, or \code{"domain"} (defaults to \code{exact}).}
+
+\item{collapse}{collapse results based on a field, or a substring of a field.
+Collapsing is done on adjacent cdx lines where all captures after the
+first one that are duplicate are filtered out. This is useful for filtering
+out captures that are 'too dense' or when looking for unique captures.
+To use collapsing, add one or more \code{collapse=field} or \code{collapse=field:N}
+where \code{N} is the first \code{N} characters of field to test. Use \code{NULL} for
+no collapsing Default is to collapse by \code{urlkey} (like the web UX).
+Reference: \url{https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server}.}
 
 \item{limit}{Maximum number of results to return (first \emph{n} results). Use a
 negative number to retrieve the last \emph{n} results. Default is \code{10,000}.}

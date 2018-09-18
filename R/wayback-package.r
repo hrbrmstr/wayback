@@ -15,4 +15,8 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom dplyr mutate select
 #' @importFrom memoise memoise
+#' @importFrom anytime anytime
+#' @importFrom lazyeval interp
+#' @importFrom stats setNames
+#' @importFrom utils URLencode
 NULL

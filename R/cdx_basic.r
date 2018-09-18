@@ -10,22 +10,20 @@
 #' @param match_type The CDX server can also return results matching a certain
 #'        prefix, a certain host or all subdomains. Can be one of
 #'        `"exact"`, `"prefix"`, `"host"`, or `"domain"` (defaults to `exact`).
+#' @param collapse collapse results based on a field, or a substring of a field.
+#'        Collapsing is done on adjacent cdx lines where all captures after the
+#'        first one that are duplicate are filtered out. This is useful for filtering
+#'        out captures that are 'too dense' or when looking for unique captures.
+#'        To use collapsing, add one or more `collapse=field` or `collapse=field:N`
+#'        where `N` is the first `N` characters of field to test. Use `NULL` for
+#'        no collapsing Default is to collapse by `urlkey` (like the web UX).
+#'        Reference: <https://github.com/internetarchive/wayback/tree/master/wayback-cdx-server>.
 #' @param limit Maximum number of results to return (first _n_ results). Use a
 #'        negative number to retrieve the last _n_ results. Default is `10,000`.
 #'
 #' @return data frame
 #'
 #' @md
-#' @import httr
-#' @importFrom jsonlite fromJSON
-#' @importFrom dplyr mutate
-#' @importFrom purrr flatten_chr
-#' @importFrom anytime anytime
-#' @importFrom tibble as_tibble
-#' @importFrom lazyeval interp
-#' @importFrom stats setNames
-#' @importFrom utils URLencode
-#'
 #' @export
 #' @examples \dontrun{
 #' rproj_basic <- cdx_basic_query("https://www.r-project.org/")
@@ -41,7 +39,10 @@
 #' ## $ digest     <chr> "XDIHHFDLIWSZFHYHT453ZL5FYPCKFF6Z", "SRO3WSKQS6HST4PQY7...
 #' ## $ length     <dbl> 4894, 5027, 589, 581, 582, 596, 590, 592, 592, 592, 563...
 #' }
-cdx_basic_query <- function(url, match_type = c("exact", "prefix", "host", "domain"), limit = 1e4L) {
+cdx_basic_query <- function(url,
+                            match_type = c("exact", "prefix", "host", "domain"),
+                            collapse = "urlkey",
+                            limit = 1e4L) {
 
   if (missing(url) || is.null(url) || is.na(url) || url == "" || !is.character(url)) {
     stop("Invalid or missing URL.")
@@ -60,10 +61,17 @@ cdx_basic_query <- function(url, match_type = c("exact", "prefix", "host", "doma
 
   url_enc <- utils::URLencode(url)
 
-  res <- httr::GET("http://web.archive.org/cdx/search/cdx",
-             query = list(url = url_enc, output = "json", matchType = match_type, limit = limit),
-             httr::user_agent(UA_WAYBACK)
-  )
+  httr::GET(
+    "http://web.archive.org/cdx/search/cdx",
+    httr::user_agent(UA_WAYBACK),
+    query = list(
+      url = url_enc,
+      output = "json",
+      collapse = collapse,
+      matchType = match_type,
+      limit = limit
+    )
+  ) -> res
 
   httr::stop_for_status(res)
 
@@ -73,9 +81,9 @@ cdx_basic_query <- function(url, match_type = c("exact", "prefix", "host", "doma
 
   res <- httr::content(res, as = "text", encoding = "UTF-8")
 
-  res <- jsonlite::fromJSON(res,
-                            simplifyVector = TRUE,
-                            simplifyDataFrame = TRUE)
+  jsonlite::fromJSON(
+    res, simplifyVector = TRUE, simplifyDataFrame = TRUE
+  ) -> res
 
   res <- tibble::as_tibble(res)
 
